@@ -1,3 +1,7 @@
+/**
+ * This file contains design and display functions
+ */
+
 import entityclasses.*;
 
 public class Display {

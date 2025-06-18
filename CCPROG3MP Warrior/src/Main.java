@@ -6,6 +6,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int creationstat = 0; // variable to track character creation status
         int menuchoice;
+        int turn, currEnvPlayerPenalty, currEnvOppPenalty;
 
         Warrior warrior = new Warrior();
         Weapon weapon = new Weapon("N/A");            
@@ -51,25 +52,18 @@ public class Main {
 
                     case 1: //////// armor selection
                         creationstat += Helper.selectArmor(sc, warrior, armor, weapon); // select armor
-
                         break;
 
                     case 2: ///////// opponent selection
                         creationstat += Helper.selectOpponent(sc, warrior, opponent, armor); // select opponent
-
                         break;
 
                     case 3: ////////// environment selection
                         creationstat += Helper.selectEnvironment(sc, environment, opponent); // select environment
-                            if (creationstat == 2) { // if environment selection was cancelled
-                                opponent.revertOpponent(); // revert opponent selection
-                            }
+                        break;
 
                     case 4: ///////// confirmation
                         creationstat += Helper.selectConfirmation(sc, environment); // confirm selections
-                            if (creationstat == 3) { // if confirmation was cancelled
-                                environment.revertEnvironment(); // revert environment selection
-                            }
                         break;
                     }
             } while (creationstat != 5 && creationstat != -1); // loop until pregame creation / selection is complete
@@ -78,15 +72,21 @@ public class Main {
             if (creationstat == 5) {
                 System.out.println("=========================================================\n");
                 System.out.println("Game Start!");
-                System.out.println("Your warrior is ready for battle!");
+                
+                //warrior vs opponent start screen
+                //// check speed to determine whose first (turn 1 or 2)
+                //press enter to continue function in helper
+                
                 // start the game loop
-                do {
-                    // combat logic here
-                    // display stats, take turns, etc.
-                    System.out.println("Combat in progress...");
-                    // for now, just break out of the loop
+                do {    
+                    //// add to currEnvPenalty yung environment penalty
+                    // basic player / opp data (name, hp) / environment effects
+                    // text art??
+
+                    // actions: attack, defend, charge
+                    // turn switch from 1 to 2 ; 2 to 1
                     break;
-                } while (true); // replace with actual combat condition
+                } while (true); // while turn != 0
             } 
 
         }

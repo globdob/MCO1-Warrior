@@ -1,3 +1,8 @@
+/**
+ * This file contains methods that help with the smooth execution and flow of the game
+ *  ex. selecting weapon/armor/etc.
+ */
+
 import java.util.Scanner;
 import entityclasses.*;
 
@@ -92,6 +97,7 @@ public class Helper {
             
             if (choice != 0) { // if a weapon was selected
                 System.out.println("You selected " + armor.getArmor() + " ARMOR!");
+                warrior.equipArmor(armor); // equip the selected armor
                 creationstat = 1;
             }
         return creationstat;
@@ -145,9 +151,15 @@ public class Helper {
         int choice, creationstat = 0;
         do {
             System.out.println("Environment Selection:");
-            System.out.println("[1] Forest"); /////////////////// ADD DESCRIPTIONS
-            System.out.println("[2] Desert");
-            System.out.println("[3] Mountain");
+            System.out.println("[1] Arena");
+            System.out.println("L==> A fair and open battleground with no special effects.");
+            System.out.println("L==> NO PENALTIES");
+            System.out.println("[2] Swamp");
+            System.out.println("L==> A murky swamp that drains the player's health.");
+            System.out.println("L==> -1 HP PER TURN FOR PLAYER | +1 ATK PER TURN FOR OPPONENT");
+            System.out.println("[3] Colosseum");
+            System.out.println("L==> A grand colosseum that boosts the player's attack.");
+            System.out.println("L==> +1 ATK PER TURN FOR PLAYER | -1 DEF PER TURN FOR OPPONENT");
             System.out.println("[0] Back to Opponent Selection");
 
             System.out.println("\nSelect an environment: ");
@@ -155,13 +167,13 @@ public class Helper {
 
             switch (choice) {
                 case 1:
-                    environment.setEnvironment("FOREST");
+                    environment.setEnvironment("ARENA");
                     break;
                 case 2:
-                    environment.setEnvironment("DESERT");
+                    environment.setEnvironment("SWAMP");
                     break;
                 case 3:
-                    environment.setEnvironment("MOUNTAIN");
+                    environment.setEnvironment("COLOSSEUM");
                     break;
                 case 0:
                     System.out.println("Going back to opponent selection...");
@@ -198,7 +210,7 @@ public class Helper {
                     break;
                 case 0:
                     System.out.println("Going back to environment selection...");
-                    environment.revertEnvironment(); // revert environment selection
+                    environment.setEnvironment("N/A"); // revert environment selection
                     creationstat = -1; // reset creation status to go back to environment selection
                     break;
                 default:

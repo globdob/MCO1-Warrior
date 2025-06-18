@@ -13,7 +13,7 @@ public class Environment {
 			
 			this.type = type;
 			
-			if (type.equals("N/A")){
+			if (type.equals("N/A") || type == null){
 				playerPenalty = 0;
 				opponentPenalty = 0;
 				desc = "N/A";
@@ -96,14 +96,6 @@ public class Environment {
 		}
 		
 	// actions
-		public void revertEnvironment() {
-			type = "N/A"; // reset type to N/A
-			playerPenalty = 0;
-			opponentPenalty = 0;
-			desc = "N/A";
-			penaltyDesc = "N/A";
-		}
-
 		// display environment details
 		public void displayEnvironment(int descboolean) {
 			System.out.printf("%-30s%-30s\n", "ENVIRONMENT", getType());
