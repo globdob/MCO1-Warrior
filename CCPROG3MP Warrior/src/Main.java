@@ -32,7 +32,10 @@ public class Main {
                 System.out.println("Starting game...");
                 break;
             case 2:
-                System.out.println("Preparing Instructions...");
+                System.out.println("Preparing Instructions..."); // display instructions
+                System.out.println("=========================================================\n");
+                Display.displayInstructions();
+                Helper.pressEnterToContinue(sc);
                 break;
             case 0:
                 System.out.println("Exiting game...");
@@ -41,11 +44,7 @@ public class Main {
                 System.out.println("Invalid choice. Please try again.");
         }
         
-        if (menuchoice == 2) { ////////////////// instructions
-            Display.displayInstructions();
-            Helper.pressEnterToContinue(sc);
-
-        } else if (menuchoice == 1) { /////////////////////// game start
+       if (menuchoice == 1) { /////////////////////// game start
             // pregame character creation / selection
             creationstat = 0; // reset creation status
             do {
