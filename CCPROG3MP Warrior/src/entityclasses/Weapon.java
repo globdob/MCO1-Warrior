@@ -5,23 +5,24 @@ public class Weapon {
 	private int attack;
 	private int speedPenalty;
 	
-	// setter
+	// constructor
 		public Weapon(String type) {
 			
 			this.type = type;
 			
-			if(type == "DAGGER") {
+			if(type.equals("DAGGER")) {
 				attack = 20;
 				speedPenalty = 0;
-			} else if (type == "SWORD") {
+			} else if (type.equals("SWORD")) {
 				attack = 30;
 				speedPenalty = -10;
-			} else if (type == "BATTLE AXE") {
+			} else if (type.equals("BATTLE AXE")) {
 				attack = 40;
 				speedPenalty = -20;
 			} 	
 		}
-
+	
+	// setter
 		public void setWeapon(String type) {
 			this.type = type;
 			
@@ -42,8 +43,6 @@ public class Weapon {
 		}
 		
 	// getters
-		
-		// get rid of (?)
 		public String getWeapon() {
 			return type;
 		}

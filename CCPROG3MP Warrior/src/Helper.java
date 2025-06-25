@@ -7,7 +7,12 @@ import java.util.Scanner;
 import entityclasses.*;
 
 public class Helper {
-    
+
+    /**
+     * Prompts the user to press Enter to continue.
+     * This method is used to pause the program and wait for user input before proceeding.
+     * @param Scanner scanner - the Scanner object used to read user input
+     */
     public static void pressEnterToContinue(Scanner scanner) {
         System.out.println("Press Enter to continue...");
         if (scanner.hasNextLine()) {
@@ -16,7 +21,14 @@ public class Helper {
         scanner.nextLine(); // wait for user to press Enter
     }
 
-    // Method to select a weapon
+    /**
+     * Prompts the user to select a weapon for their warrior.
+     * The user can choose from three types of weapons: Dagger, Sword, and Battle
+     * @param Scanner scanner - Scanner object to read user input
+     * @param Warrior warrior - the warrior for whom the weapon is being selected
+     * @param Weapon weapon - the weapon object to be equipped
+     * @return int - returns 1 if a weapon is selected, -1 if the user chooses to go back
+     */
     public static int selectWeapon (Scanner scanner, Warrior warrior, Weapon weapon) {
         int choice, creationstat = 0;
         do {
@@ -59,7 +71,15 @@ public class Helper {
         return creationstat; // return the status of weapon selection
     }
 
-    // Method to select armor
+    /**
+     * Prompts the user to select an armor for their warrior.
+     * The user can choose from three types of armor: Light, Medium, and Heavy.
+     * @param Scanner scanner - the Scanner object used to read user input
+     * @param Warrior warrior - the warrior for whom the armor is being selected
+     * @param Armor armor - the armor object to be equipped
+     * @param Weapon weapon - the weapon currently equipped by the warrior
+     * @return int - returns 1 if an armor is selected, -1 if the user chooses to go back
+     */
     public static int selectArmor(Scanner scanner, Warrior warrior, Armor armor, Weapon weapon) {
         int choice, creationstat = 0;
         do {
@@ -103,7 +123,15 @@ public class Helper {
         return creationstat;
     }
 
-    // Method to select an opponent
+    /**
+     * Prompts the user to select an opponent for the warrior.
+     * The user can choose from three types of opponents: Thief, Viking, and Minotaur.
+     * @param Scanner scanner - the Scanner object used to read user input
+     * @param Warrior warrior - the warrior for whom the opponent is being selected
+     * @param Opponent opponent - the opponent object to be set
+     * @param Armor armor - the armor currently equipped by the warrior
+     * @return int - returns 1 if an opponent is selected, -1 if the user chooses to go back
+     */
     public static int selectOpponent(Scanner scanner, Warrior warrior, Opponent opponent, Armor armor) {
         int choice, creationstat = 0;
         do {
@@ -146,9 +174,14 @@ public class Helper {
         return creationstat; // return the status of opponent selection
     }
 
-    // Method to select an environment
-    //aaaaaaaaaaa
-    // fetch -> commit -> push
+    /**
+     * Prompts the user to select an environment for the battle.
+     * The user can choose from three types of environments: Arena, Swamp, and Colosseum.
+     * @param Scanner scanner - the Scanner object used to read user input
+     * @param Environment environment - the environment object to be set
+     * @param Opponent opponent - the opponent object to be set
+     * @return int - returns 1 if an environment is selected, -1 if the user chooses to go back
+     */
     public static int selectEnvironment(Scanner scanner, Environment environment, Opponent opponent) {
         int choice, creationstat = 0;
         do {
@@ -194,6 +227,13 @@ public class Helper {
         return creationstat; // return the status of environment selection
     }
 
+    /**
+     * Prompts the user to confirm their selections before starting the game.
+     * Displays the current selections and asks if the user is ready to start the game.
+     * @param Scanner scanner - the Scanner object used to read user input
+     * @param Environment environment - the environment object currently selected
+     * @return int - returns 1 if the user is ready to start the game, -1 if the user chooses to go back
+     */
     public static int selectConfirmation(Scanner scanner, Environment environment) {
         int choice, creationstat = 0;
         do {

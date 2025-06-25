@@ -1,3 +1,8 @@
+/**
+ * This is the main program
+ *
+ **/
+
 import java.util.Scanner;
 import entityclasses.*;
 
@@ -5,13 +10,14 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int creationstat = 0; // variable to track character creation status
-        int menuchoice;
+        int menuchoice; // variable to track menu choice
+
+        // variables for game loop ===== modify if needed
         int turn, currEnvPlayerPenalty, currEnvOppPenalty;
 
         Warrior warrior = new Warrior();
         Weapon weapon = new Weapon("N/A");            
         Armor armor = new Armor("N/A");
-
         Opponent opponent = new Opponent("N/A");
         Environment environment = new Environment("N/A");
 

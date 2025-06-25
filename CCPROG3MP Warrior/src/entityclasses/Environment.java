@@ -8,7 +8,7 @@ public class Environment {
 	private int playerPenalty;
 	private int opponentPenalty;
 	
-	// setter
+	// constructor
 		public Environment(String type) {
 			
 			this.type = type;
@@ -40,7 +40,8 @@ public class Environment {
 				penaltyDesc = "N/A";
 			}
 		}
-
+	
+	// setter
 		public void setEnvironment(String type) {
 			this.type = type;
 			
@@ -73,8 +74,6 @@ public class Environment {
 		}
 		
 	// getters
-	// get rid of(?)
-		
 		public String getType() {
 			return type;
 		}
@@ -96,16 +95,27 @@ public class Environment {
 		}
 		
 	// actions
-		// display environment details
-		public void displayEnvironment(int descboolean) {
+		/**
+		 * Displays details about the current environment
+		 * Takes in a boolean that determines if the long description should be displayed
+		 * true displays type, description, and penalty description. false doesn't display the description
+		 * @param boolean descboolean - determines if description should be displayed
+		 */
+		public void displayEnvironment(boolean descboolean) {
 			System.out.printf("%-30s%-30s\n", "ENVIRONMENT", getType());
-			if (descboolean == 1) {
+			if (descboolean == true) {
 				System.out.printf("%-30s%-30s\n", "DESC: ", getDesc());
 			}
 			System.out.printf("%-30s%-30s\n", "PEN: ", getPenaltyDesc());
 		}
 
 		// will penalties be applied at the start of every turn or will it be a constant 
+		/**
+		 * this is based on main game loop kung pano aapply penalties
+		 * 
+		 * @param int attackWarrior
+		 * @param int attackOpponent
+		 */
 		public void applyPenalties(int attackWarrior, int attackOpponent) {
 			attackWarrior -= playerPenalty;
 			attackOpponent -= opponentPenalty;

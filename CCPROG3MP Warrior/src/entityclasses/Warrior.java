@@ -16,6 +16,12 @@ public class Warrior {
 	private Weapon equippedWeapon;
 	private Armor equippedArmor;
 	
+	// constructor
+		public Warrior() {
+			this.equippedWeapon = null; // no weapon equipped by default
+			this.equippedArmor = null; // no armor equipped by default
+		}
+
 	// getters
 		public int getHitPoints() {
 			return hitPoints;
@@ -41,7 +47,7 @@ public class Warrior {
 			return equippedArmor != null ? equippedArmor.getArmor() : "N/A";
 		}
 
-		public String[] getStatsArray() {
+		public String[] getStatsArray() { // returns a String array with the warrior's stats
 			return new String[] {
 				"HP: " + this.hitPoints,
 				"ATK: " + (this.attack + (equippedWeapon != null ? equippedWeapon.getAttack() : 0)),
@@ -51,15 +57,25 @@ public class Warrior {
 		}
 		
 	// actions
+		/**
+		 * Equips a weapon to the warrior.
+		 * If a weapon is already equipped, it will be replaced.
+		 * @param Weapon equippedWeapon - the weapon to be equipped
+		 */
 		public void equipWeapon(Weapon equippedWeapon) {
 			this.equippedWeapon = equippedWeapon;
 		}
 		
+		/**
+		 * Equips an armor to the warrior.
+		 * If an armor is already equipped, it will be replaced.
+		 * @param Armor equippedArmor - the armor to be equipped
+		 */
 		public void equipArmor(Armor equippedArmor) {
 			this.equippedArmor = equippedArmor;
 		}
 
-		//////// baka lang kailangan
+		//////// baka lang kailangan - delete if not needed
 		public void resetWeapon() {
 			this.equippedWeapon = null;
 		}
@@ -67,12 +83,24 @@ public class Warrior {
 		public void resetArmor() {
 			this.equippedArmor = null;
 		}
-		
+		///////////////
+
+		/**
+		 * Attacks the opponent and applies damage based on the warrior's attack stat
+		 * Equipped weapon's attack is added to the warrior's attack stat.
+		 * @param Opponent opponent - the opponent to be attacked
+		 */
 		public void attack(Opponent opponent) {
 			int damage = this.attack + (equippedWeapon != null ? equippedWeapon.getAttack() : 0);
 			opponent.takeDamage(damage);
 		}
 
+		/**
+		 * Takes damage from an attack.
+		 * Damage is reduced by the equipped armor's defense stat.
+		 * Hit points cannot go below 0.
+		 * @param int damage - the amount of damage taken
+		 */
 		public void takeDamage(int damage) {
 			hitPoints -= damage - (equippedArmor != null ? equippedArmor.getDefense() : 0);
 			if (hitPoints < 0) {
@@ -80,10 +108,19 @@ public class Warrior {
 			}
 		}
 		
+		/**
+		 * Defends against an attack.
+		 * Damage is halved and reduced by the equipped armor's defense stat.
+		 * @param int attack - the attack value to be defended against
+		 */
 		public void defend(int attack) {
 			hitPoints -= attack/2;
 		}
 		
+		/**
+		 * Charges the warrior's attack stat and triples it
+		 * @return int - the new attack value after charging
+		 */
 		public int charge() {
 			return attack *= 3;
 		}

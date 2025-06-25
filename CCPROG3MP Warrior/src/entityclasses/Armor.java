@@ -6,24 +6,24 @@ public class Armor {
 	private int defense;
 	private int speedPenalty;
 	
-	// setter
+	// constructor
 		public Armor(String type) {
 			
 			this.type = type;
 			
-			if(type == "LIGHT") {
+			if(type.equals("LIGHT")) {
 				defense = 20;
 				speedPenalty = -5;
-			} else if (type == "MEDIUM") {
+			} else if (type.equals("MEDIUM")) {
 				defense = 30;
 				speedPenalty = -15;
-			} else if (type == "HEAVY") {
+			} else if (type.equals("HEAVY")) {
 				defense = 40;
 				speedPenalty = -25;
 			}
-			// what if invalid?
 		}
 
+	// setter
 		public void setArmor(String type) {
 			this.type = type;
 			
@@ -42,10 +42,8 @@ public class Armor {
 				speedPenalty = 0;
 			}
 		}
-		
+			
 	// getters
-		
-		// get rid of (?)
 		public String getArmor() {
 			return type;
 		}
@@ -57,8 +55,5 @@ public class Armor {
 		public int getSpeedPenalty() {
 			return speedPenalty;
 		}
-
-	// actions
-		
 
 }

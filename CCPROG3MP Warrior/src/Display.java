@@ -6,6 +6,9 @@ import entityclasses.*;
 
 public class Display {
 
+    /**
+     * Displays the main menu of the game.
+     */
     public static void displayMenu() {
         System.out.println("=========================================================\n");
         System.out.println("Welcome to Warrior!");
@@ -16,21 +19,41 @@ public class Display {
         System.out.println("\n=========================================================\n");
     }
     
+    /**
+     * Displays the instructions for how to play the game.
+     * This method provides a brief overview of the game mechanics and objectives.
+     */
     public static void displayInstructions() {
         System.out.println("=========================================================\n");
         System.out.println("How to Play:");
         System.out.println("1. Create your character by selecting a weapon and armor.");
         System.out.println("2. Choose your opponent and the environment for the battle.");
-        System.out.println("3. Engage in combat until one warrior is defeated.");
+        System.out.println("3. Engage in combat until one side is defeated.");
         System.out.println("4. Enjoy the game!");
         System.out.println("\n=========================================================\n");
     }
 
+    /**
+     * Displays the currently equipped weapon and armor of the warrior.
+     * @param armor The armor currently equipped by the warrior.
+     * @param weapon The weapon currently equipped by the warrior.
+     * @param warrior The warrior whose equipment is being displayed.
+     */
     public static void displayEquipped(Armor armor, Weapon weapon, Warrior warrior) {
         System.out.printf("WEAPON: %s\n", warrior.getWeaponName());
         System.out.printf("ARMOR: %s\n", warrior.getArmorName());
     }
 
+    /**
+     * Displays the preparation status of the game before the battle starts.
+     * It shows the status of weapon selection, armor selection, opponent selection, and environment selection
+     * @param creationstat
+     * @param warrior
+     * @param weapon
+     * @param armor
+     * @param opponent
+     * @param environment
+     */
     public static void displayPrepStatus(int creationstat, Warrior warrior, Weapon weapon, Armor armor, Opponent opponent, Environment environment) {
         System.out.println("=========================================================\n");
         System.out.println("Pre-Game Preparation:");
@@ -52,7 +75,7 @@ public class Display {
         displayEquipped(armor, weapon, warrior);
         System.out.println("=========================================================");
             // display environment and opponent
-        environment.displayEnvironment(1);
+        environment.displayEnvironment(true);
         System.out.println("=========================================================");
     }
 

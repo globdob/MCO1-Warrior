@@ -8,7 +8,7 @@ public class Opponent {
 	private int defense;
 	private int speed;
 	
-	// setter
+	// constructor
 		public Opponent(String type) {
 			
 			this.type = type;
@@ -41,6 +41,7 @@ public class Opponent {
 			}
 		}
 
+	// setter
 		public void setOpponent(String type) {
 			this.type = type;
 			
@@ -73,9 +74,7 @@ public class Opponent {
 			}
 		}
 		
-	// getter
-		
-		// get rid of (?)
+	// getters
 		public String getOpponentType() {
 			return type;
 		}
@@ -96,7 +95,8 @@ public class Opponent {
 			return speed;
 		}
 		
-		public String[] getStatsArray() {
+		// returns a String array with the opponent's stats
+		public String[] getStatsArray() { 
 			return new String[] {
 				"HP: " + this.hitPoints,
 				"ATK: " + this.attack,
@@ -106,22 +106,38 @@ public class Opponent {
 		}
 
 	// actions
+		/**
+		 * Reverts opponent's stats to 0 and clears out its type to "N/A"
+		 * @param void
+		 */
 		public void revertOpponent() {
-			type = "N/A";
-			hitPoints = 0;
-			attack = 0;
-			defense = 0;
-			speed = 0;
+			this.type = "N/A";
+			this.hitPoints = 0;
+			this.attack = 0;
+			this.defense = 0;
+			this.speed = 0;
 		}
 
+		/**
+		 * Attacks the warrior and applies damage based on the opponent's attack stat
+		 * @param Warrior warrior - target to be attacked
+		 */
 		public void attack(Warrior warrior) {
 			warrior.takeDamage(this.attack);
 		}
 		
+		/**
+		 * Deflects warrior's attack and halves the damage to be taken
+		 * @param int attack - attack stat to be deflected
+		 */
 		public void defend(int attack) {
 			hitPoints -= attack/2;
 		}
 		
+		/**
+		 * Takes damage and applies defense reduction
+		 * @param int damage - damage to be taken
+		 */
 		public void takeDamage(int damage) {
 			hitPoints -= damage - defense;
 			if (hitPoints < 0) {
@@ -129,6 +145,10 @@ public class Opponent {
 			}
 		}
 
+		/**
+		 * Charges the opponent's attack, tripling its attack stat
+		 * @return int - new attack value after charging
+		 */
 		public int charge() {
 			return attack *= 3;
 		}
