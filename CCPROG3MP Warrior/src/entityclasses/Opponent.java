@@ -127,14 +127,6 @@ public class Opponent {
 		}
 		
 		/**
-		 * Deflects warrior's attack and halves the damage to be taken
-		 * @param int attack - attack stat to be deflected
-		 */
-		public void defend(int attack) {
-			hitPoints -= attack/2;
-		}
-		
-		/**
 		 * Takes damage and applies defense reduction
 		 * @param int damage - damage to be taken
 		 */
@@ -145,6 +137,14 @@ public class Opponent {
 			}
 		}
 
+		/**
+		 * Deflects warrior's attack and halves the damage to be taken
+		 * @param int attack - attack stat to be deflected
+		 */
+		public void defend(int attack) {
+			hitPoints -= attack/2;
+		}
+		
 		/**
 		 * Charges the opponent's attack, tripling its attack stat
 		 * @return int - new attack value after charging

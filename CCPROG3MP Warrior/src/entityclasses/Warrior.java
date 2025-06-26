@@ -9,15 +9,19 @@ package entityclasses;
 
 public class Warrior {
 	
-	private int hitPoints = 100;
-	private int attack = 1;
-	private int defense = 1;
-	private int speed = 50;
+	private int hitPoints;
+	private int attack;
+	private int defense;
+	private int speed;
 	private Weapon equippedWeapon;
 	private Armor equippedArmor;
 	
 	// constructor
 		public Warrior() {
+			this.hitPoints = 100; // default hit points
+			this.attack = 1; // default attack
+			this.defense = 1; // default defense
+			this.speed = 50; // default speed
 			this.equippedWeapon = null; // no weapon equipped by default
 			this.equippedArmor = null; // no armor equipped by default
 		}
