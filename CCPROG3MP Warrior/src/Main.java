@@ -13,7 +13,9 @@ public class Main {
         int menuchoice; // variable to track menu choice
 
         // variables for game loop ===== modify if needed
-        int turn, currEnvPlayerPenalty, currEnvOppPenalty;
+        String playerAction = ""; 
+        String opponentAction = "";
+        int turn;
 
         Warrior warrior = new Warrior();
         Weapon weapon = new Weapon("N/A");            
@@ -76,25 +78,124 @@ public class Main {
             // game loop proper
             if (creationstat == 5) {
                 System.out.println("=========================================================\n");
-                System.out.println("Game Start!");
-                
-                //warrior vs opponent start screen
-                //// check speed to determine whose first (turn 1 or 2)
-                //press enter to continue function in helper
-                
+                Display.displayAllStats(warrior, opponent); // display warrior and opponent stats
+                environment.displayEnvironment(false); // display environment details
+                System.out.println("\nGame Start!\n");
+                Helper.pressEnterToContinue(sc);//press enter to continue function in helper
+            
+                System.out.println("=========================================================\n");
                 // start the game loop
                 do {    
-                    //// add to currEnvPenalty yung environment penalty
+                    System.out.println("=========================================================\n");
                     // basic player / opp data (name, hp) / environment effects
-                    // text art??
+                    Display.displayAllStats(warrior, opponent);
+                    environment.displayEnvironment(false); 
+                    System.out.println("=========================================================\n");
+                    environment.applyPenalties(warrior, opponent); // add environment penalties to warrior and opponent
+                    
+                    if (warrior.getHitPoints() <= 0 || opponent.getHitPoints() <= 0) { // check hp
+                        turn = 0; // end the game loop
+                    
+                    } else{
+                        // check charge counter
+                        if (warrior.getChargeCounter() > 0) {
+                            System.out.println(warrior.getChargeCounter() + " turns left for charge.");
+                            warrior.setChargeCounter(warrior.getChargeCounter() - 1); // decrement charge counter
+                        }
+                        if (opponent.getChargeCounter() > 0) {
+                            System.out.println(opponent.getChargeCounter() + " turns left for opponent charge.");
+                            opponent.setChargeCounter(opponent.getChargeCounter() - 1); // decrement opponent charge counter
+                        }
 
-                    // actions: attack, defend, charge
-                    // turn switch from 1 to 2 ; 2 to 1
-                    break;
-                } while (true); // while turn != 0
+                        if (warrior.isCharged() && !playerAction.equals("attack") && !warrior.isChargedLastTurn()) {
+                            System.out.println("You lost your charged status because you did not attack!");
+                            warrior.setCharged(false);
+                        } else if (warrior.isCharged()) {
+                            System.out.println("You are charged. Next attack will be tripled.");
+                            warrior.setChargedLastTurn(false); // reset charged last turn status
+                        }
+
+                        if (opponent.isCharged() && !opponentAction.equals("attack") && !opponent.isChargedLastTurn()) {
+                            System.out.println("Opponent lost their charged status because they did not attack!");
+                            opponent.setCharged(false);
+                        } else if (opponent.isCharged()) {
+                            System.out.println("Opponent is charged. Next attack will be tripled.");
+                            opponent.setChargedLastTurn(false); // reset opponent charged last turn status
+                        }
+                        
+                        // text art??
+
+                        // save actions for player and opponent
+                        playerAction = Helper.getPlayerAction(sc); // prompt player for action
+                        opponentAction = Helper.getOpponentAction(); // determine opponent action
+
+                        // check defend
+                        if (playerAction.equals("defend")) {
+                            warrior.setDefending(true); // set warrior to defending
+                            System.out.println("You are defending this turn.");
+                        }
+                        if (opponentAction.equals("defend")) {
+                            opponent.setDefending(true); // set opponent to defending
+                            System.out.println("Opponent is defending this turn.");
+                        }
+
+                        // check charge
+                        if (playerAction.equals("charge")) {
+                            warrior.setCharged(true);
+                            warrior.setChargedLastTurn(true); // set charged last turn status
+                            System.out.println("You are charging this turn. Next attack will be tripled.");
+                        }
+                        if (opponentAction.equals("charge")) {
+                            opponent.setCharged(true);
+                            opponent.setChargedLastTurn(true); // set opponent charged last turn status
+                            System.out.println("Opponent is charging this turn. Next attack will be tripled.");
+                        }
+
+                        turn = Helper.compareSpeed(warrior, opponent); // turn = 1 if player goes first, 2 if opponent goes first
+                        //// check speed to determine whose action will initiate first (turn 1 or 2)
+                        
+                        /// HAVE DISPLAY TEXT HERE!!! 
+                        // attack actions
+                        if (turn == 1) {
+                            // player's turn
+                            if (playerAction.equals("attack")){
+                                Helper.WarriorAttack(warrior, opponent);
+                            }
+
+                            // opponent's turn
+                            if (opponent.getHitPoints() > 0 && opponentAction.equals("attack")) { // check if opponent is defeated
+                                Helper.OpponentAttack(warrior, opponent); // opponent attacks warrior
+                            } else if (opponent.getHitPoints() <= 0){
+                                turn = 0; // end the game loop if opponent is defeated
+                            }
+                            
+                        } else if (turn == 2) {
+                            // opponent's turn
+                            if (opponentAction.equals("attack")){
+                                Helper.OpponentAttack(warrior, opponent);
+                            }
+
+                            // player's turn
+                            if (warrior.getHitPoints() > 0 && playerAction.equals("attack")) { // check if opponent is defeated
+                                Helper.WarriorAttack(warrior, opponent); // warrior attacks opponent
+                            } else if (warrior.getHitPoints() <= 0){
+                                turn = 0; // end the game loop if opponent is defeated
+                            }
+                        }
+
+                        warrior.setDefending(false); // reset warrior defending state
+                        opponent.setDefending(false); // reset opponent defending state
+
+                    } // end of turn actions
+
+                } while (turn != 0);
+
+                System.out.println(warrior.getHitPoints() <= 0 ? "GAME OVER: You have been defeated!" :
+                             "CONGRATULATIONS: You have defeated your opponent!");
+                // ask if player wants to continue playing or exit
             } 
 
-        }
+        } // end of game start (menuchoice == 1)
 
         System.out.println("=========================================================\n");
 

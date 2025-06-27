@@ -263,4 +263,115 @@ public class Helper {
         return creationstat;
     }
 
+    /**
+     * Compares the speed of the warrior and opponent to determine who attacks first.
+     * Returns 1 if the warrior attacks first, 2 if the opponent attacks first,
+     * or randomly determines who attacks first if both have the same speed.
+     * @param Warrior warrior - the warrior object
+     * @param Opponent opponent - the opponent object
+     */
+    public static int compareSpeed(Warrior warrior, Opponent opponent) {
+        int result;
+        if (warrior.getSpeed() > opponent.getSpeed()) {
+            result = 1; // warrior attacks first
+        } else if (warrior.getSpeed() < opponent.getSpeed()) {
+            result = 2; // opponent attacks first
+        } else {
+            result = (Math.random() < 0.5) ? 1 : 2; // randomly determine who attacks first
+        }
+        return result;
+    }
+
+    /**
+     * Asks the user to choose an action for their warrior.
+     * The user can choose to attack, defend, or charge.
+     * * @param Scanner scanner - the Scanner object used to read user input
+     * @return String - the action chosen by the user
+     */
+    public static String getPlayerAction(Scanner sc) {
+        int input;
+        String playerAction = "";
+        do {
+            System.out.println("Choose your action:");
+            System.out.println("[1] Attack");
+            System.out.println("[2] Defend");
+            System.out.println("[3] Charge");
+            System.out.print("Enter your action: ");
+            
+            input = sc.nextInt(); 
+            switch (input) {
+                case 1:
+                    playerAction = "attack";
+                    System.out.println("You chose to attack!");
+                    break;
+                case 2:
+                    playerAction = "defend";
+                    System.out.println("You chose to defend!");
+                    break;
+                case 3:
+                    playerAction = "charge";
+                    System.out.println("You chose to charge!");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        } while (input != 1 && input != 2 && input != 3); // loop until a valid action is chosen
+        return playerAction; // return the chosen action
+    }
+
+    /**
+     * Gets opponent's action.
+     * The opponent can randomly choose to attack, defend, or charge.
+     * @return String - the action chosen by the opponent
+     */
+    public static String getOpponentAction() {
+        /*String[] actions = {"attack", "defend", "charge"};
+        int randomIndex = (int) (Math.random() * actions.length);
+        return actions[randomIndex]; */
+
+        return "attack"; // for now, the opponent always attacks
+    }
+
+    /**
+     * Handles the warrior's attack logic.
+     * @param Warrior warrior - the warrior attacking the opponent
+     * @param Opponent opponent - the opponent being attacked
+     */
+    public static void WarriorAttack(Warrior warrior, Opponent opponent) {
+            if (opponent.isDefending()) { // check if opponent is defending
+                System.out.println("Opponent is defending. Attack will be halved.");
+                opponent.setDefending(false); // reset opponent defending state
+                opponent.defend(warrior.getAttack());
+            } else if (warrior.isCharged()) { // check if warrior is charged
+                System.out.println("You are charged. Your attack is tripled!");
+                warrior.setChargeCounter(3);
+                warrior.setCharged(false);
+                warrior.charge(opponent);
+            } else{
+                System.out.println("You attack the opponent!");
+                warrior.attack(opponent);
+            }
+    }
+
+    /**
+     * Handles the opponent's attack logic.
+     * @param Warrior warrior - the warrior being attacked
+     * @param Opponent opponent - the opponent attacking the warrior
+     */
+    public static void OpponentAttack(Warrior warrior, Opponent opponent) {
+        if (warrior.isDefending()) {
+            System.out.println("You are defending. Attack will be halved.");
+            warrior.setDefending(false); // reset warrior defending state
+            warrior.defend(opponent.getAttack());
+        } else if (opponent.isCharged()) { // check if opponent is charged
+            System.out.println("Opponent is charged! Opponent's attack will be tripled.");
+            opponent.setChargeCounter(3);
+            opponent.setCharged(false);
+            opponent.charge(warrior);
+        } else{
+            System.out.println("Opponent attacks you!");
+            opponent.attack(warrior);
+        }
+    }
+
 }

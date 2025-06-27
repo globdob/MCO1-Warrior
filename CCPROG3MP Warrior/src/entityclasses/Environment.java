@@ -116,8 +116,13 @@ public class Environment {
 		 * @param int attackWarrior
 		 * @param int attackOpponent
 		 */
-		public void applyPenalties(int attackWarrior, int attackOpponent) {
-			attackWarrior -= playerPenalty;
-			attackOpponent -= opponentPenalty;
+		public void applyPenalties(Warrior warrior, Opponent opponent) {
+			if (this.type.equals("SWAMP")) {
+				warrior.setHitPoints(warrior.getHitPoints() + playerPenalty); // apply hp penalty to player
+				opponent.setAttack(opponent.getAttack() + opponentPenalty); // apply atk gain to opponent
+			} else if (this.type.equals("COLOSSEUM")) {
+				warrior.setAttack(warrior.getAttack() + 1); // atk gain every turn
+				opponent.setDefense(opponent.getDefense() - 1); // def penalty every turn
+			} 
 		}
 }

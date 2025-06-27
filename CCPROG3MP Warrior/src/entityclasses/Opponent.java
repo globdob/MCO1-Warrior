@@ -7,6 +7,11 @@ public class Opponent {
 	private int attack;
 	private int defense;
 	private int speed;
+
+	private int chargeCounter; // counter for charge action
+	private boolean isCharged; // flag to check if warrior is charged
+	private boolean ChargedLastTurn; // flag to check if warrior was charged last turn
+	private boolean isDefending; // flag to check if warrior is defending
 	
 	// constructor
 		public Opponent(String type) {
@@ -39,6 +44,11 @@ public class Opponent {
 				defense = 0;
 				speed = 0;
 			}
+
+			this.chargeCounter = 0;
+			this.isCharged = false;
+			this.isDefending = false;
+			this.ChargedLastTurn = false;
 		}
 
 	// setter
@@ -74,6 +84,38 @@ public class Opponent {
 			}
 		}
 		
+		public void setAttack(int attack) {
+			this.attack = attack;
+		}
+
+		public void setDefense(int defense) {
+			this.defense = defense;
+		}
+		
+		public void setSpeed(int speed) {
+			this.speed = speed;
+		}
+
+		public void setHitPoints(int hitPoints) {
+			this.hitPoints = hitPoints;
+		}
+
+		public void setChargeCounter(int chargeCounter) {
+			this.chargeCounter = chargeCounter;
+		}
+
+		public void setCharged(boolean isCharged) {
+			this.isCharged = isCharged;
+		}
+
+		public void setChargedLastTurn(boolean ChargedLastTurn) {
+			this.ChargedLastTurn = ChargedLastTurn;
+		}
+
+		public void setDefending(boolean isDefending) {
+			this.isDefending = isDefending;
+		}
+
 	// getters
 		public String getOpponentType() {
 			return type;
@@ -105,6 +147,19 @@ public class Opponent {
 			};
 		}
 
+		public int getChargeCounter() {
+			return chargeCounter;
+		}
+		public boolean isCharged() {
+			return isCharged;
+		}
+		public boolean isChargedLastTurn() {
+			return ChargedLastTurn;
+		}
+		public boolean isDefending() {
+			return isDefending;
+		}
+
 	// actions
 		/**
 		 * Reverts opponent's stats to 0 and clears out its type to "N/A"
@@ -131,7 +186,10 @@ public class Opponent {
 		 * @param int damage - damage to be taken
 		 */
 		public void takeDamage(int damage) {
-			hitPoints -= damage - defense;
+			int damageTaken = damage - defense; // reduce damage by defense
+			hitPoints -= damageTaken;
+			System.out.println(damage + " DMG - " + defense + " DEF = " + damageTaken + " DMG TAKEN");
+			System.out.printf("Opponent takes %d damage. Remaining HP: %d%n", damageTaken, hitPoints);
 			if (hitPoints < 0) {
 				hitPoints = 0; // prevent negative hit points
 			}
@@ -142,14 +200,17 @@ public class Opponent {
 		 * @param int attack - attack stat to be deflected
 		 */
 		public void defend(int attack) {
-			hitPoints -= attack/2;
+			int halvedAttack = attack / 2;
+			takeDamage(halvedAttack);
 		}
 		
 		/**
-		 * Charges the opponent's attack, tripling its attack stat
-		 * @return int - new attack value after charging
+		 * Triples the opponent's attack stat
+		 * This action can only be performed if the opponent is charged.
+		 * @param Warrior warrior - the warrior to be attacked
 		 */
-		public int charge() {
-			return attack *= 3;
+		public void charge(Warrior warrior) {
+			int damage = this.attack * 3; // triple the attack
+			warrior.takeDamage(damage);
 		}
 }

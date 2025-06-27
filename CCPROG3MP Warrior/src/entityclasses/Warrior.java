@@ -15,6 +15,11 @@ public class Warrior {
 	private int speed;
 	private Weapon equippedWeapon;
 	private Armor equippedArmor;
+
+	private int chargeCounter; // counter for charge action
+	private boolean isCharged; // flag to check if warrior is charged
+	private boolean ChargedLastTurn; // flag to check if warrior was charged last turn
+	private boolean isDefending; // flag to check if warrior is defending
 	
 	// constructor
 		public Warrior() {
@@ -24,6 +29,43 @@ public class Warrior {
 			this.speed = 50; // default speed
 			this.equippedWeapon = null; // no weapon equipped by default
 			this.equippedArmor = null; // no armor equipped by default
+			this.chargeCounter = 0;
+			this.isCharged = false;
+			this.isDefending = false;
+			this.ChargedLastTurn = false;
+		}
+
+	// setters
+		public void setHitPoints(int hitPoints) {
+			this.hitPoints = hitPoints;
+		}
+		
+		public void setAttack(int attack) {
+			this.attack = attack;
+		}
+		
+		public void setDefense(int defense) {
+			this.defense = defense;
+		}
+		
+		public void setSpeed(int speed) {
+			this.speed = speed;
+		}
+
+		public void setChargeCounter(int chargeCounter) {
+			this.chargeCounter = chargeCounter;
+		}
+
+		public void setCharged(boolean isCharged) {
+			this.isCharged = isCharged;
+		}
+
+		public void setChargedLastTurn(boolean ChargedLastTurn) {
+			this.ChargedLastTurn = ChargedLastTurn;
+		}
+
+		public void setDefending(boolean isDefending) {
+			this.isDefending = isDefending;
 		}
 
 	// getters
@@ -58,6 +100,19 @@ public class Warrior {
 				"DEF: " + (this.defense + (equippedArmor != null ? equippedArmor.getDefense() : 0)),
 				"SPD: " + (this.speed + (equippedWeapon != null ? equippedWeapon.getSpeedPenalty() : 0) + (equippedArmor != null ? equippedArmor.getSpeedPenalty() : 0))
 			};
+		}
+
+		public int getChargeCounter() {
+			return chargeCounter;
+		}
+		public boolean isCharged() {
+			return isCharged;
+		}
+		public boolean isChargedLastTurn() {
+			return ChargedLastTurn;
+		}
+		public boolean isDefending() {
+			return isDefending;
 		}
 		
 	// actions
@@ -106,7 +161,10 @@ public class Warrior {
 		 * @param int damage - the amount of damage taken
 		 */
 		public void takeDamage(int damage) {
-			hitPoints -= damage - (equippedArmor != null ? equippedArmor.getDefense() : 0);
+			int damageTaken = damage - (equippedArmor != null ? equippedArmor.getDefense() : 0);
+			hitPoints -= damageTaken;
+			System.out.println(damage + " DMG - " + (equippedArmor != null ? equippedArmor.getDefense() : 0) + " DEF = " + damageTaken + " DMG TAKEN");
+			System.out.printf("Warrior takes %d damage. Remaining HP: %d%n", damageTaken, hitPoints);
 			if (hitPoints < 0) {
 				hitPoints = 0; // prevent negative hit points
 			}
@@ -114,19 +172,22 @@ public class Warrior {
 		
 		/**
 		 * Defends against an attack.
-		 * Damage is halved and reduced by the equipped armor's defense stat.
+		 * Damage is taken halved and reduced by the equipped armor's defense stat.
 		 * @param int attack - the attack value to be defended against
 		 */
 		public void defend(int attack) {
-			hitPoints -= attack/2;
+			int halvedAttack = attack / 2;
+			takeDamage(halvedAttack);
 		}
-		
+
 		/**
-		 * Charges the warrior's attack stat and triples it
-		 * @return int - the new attack value after charging
+		 * Triples the warrior's attack stat also considering its equipped weapon's attack.
+		 * This action can only be performed if the warrior is charged.
+		 * @param Opponent opponent - the opponent to be attacked
 		 */
-		public int charge() {
-			return attack *= 3;
+		public void charge(Opponent opponent) {
+			int damage = (this.attack + (equippedWeapon != null ? equippedWeapon.getAttack() : 0)) * 3;
+			opponent.takeDamage(damage);
 		}
 	
 }

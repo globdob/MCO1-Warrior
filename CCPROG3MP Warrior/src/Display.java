@@ -45,6 +45,23 @@ public class Display {
     }
 
     /**
+     * Displays brief stats of the warrior and the opponent
+     * @param Warrior warrior - warrior character
+     * @param Opponent opponent - opponent character
+     */
+    public static void displayAllStats(Warrior warrior, Opponent opponent) {
+        String[] warriorStats = warrior.getStatsArray();
+        String[] opponentStats = opponent.getStatsArray();
+
+        System.out.printf("%-30s%-30s%n", "WARRIOR", "OPPONENT : " + opponent.getOpponentType());
+        for (int i = 0; i < 4; i++) {
+            String wStat = i < warriorStats.length ? warriorStats[i] : "N/A";
+            String oStat = i < opponentStats.length ? opponentStats[i] : "N/A";
+            System.out.printf("%-30s%-30s%n", wStat, oStat);
+        }
+    }
+
+    /**
      * Displays the preparation status of the game before the battle starts.
      * It shows the status of weapon selection, armor selection, opponent selection, and environment selection
      * @param creationstat
@@ -62,16 +79,8 @@ public class Display {
         System.out.println(creationstat >= 2 ? "[/] Select Opponent" : "[X] Select Opponent");
         System.out.println(creationstat >= 3 ? "[/] Select Environment" : "[X] Select Environment");
         System.out.println("\n=========================================================");
-                // Get stats as arrays of strings (implement these methods in Warrior and Opponent)
-        String[] warriorStats = warrior.getStatsArray();
-        String[] opponentStats = opponent.getStatsArray();
+        displayAllStats(warrior, opponent);
 
-        System.out.printf("%-30s%-30s%n", "WARRIOR", "OPPONENT : " + opponent.getOpponentType());
-        for (int i = 0; i < 4; i++) {
-            String wStat = i < warriorStats.length ? warriorStats[i] : "N/A";
-            String oStat = i < opponentStats.length ? opponentStats[i] : "N/A";
-            System.out.printf("%-30s%-30s%n", wStat, oStat);
-        }
         displayEquipped(armor, weapon, warrior);
         System.out.println("=========================================================");
             // display environment and opponent
@@ -80,3 +89,5 @@ public class Display {
     }
 
 }
+
+
