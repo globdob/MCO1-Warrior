@@ -187,12 +187,17 @@ public class Opponent {
 		 */
 		public void takeDamage(int damage) {
 			int damageTaken = damage - defense; // reduce damage by defense
+			if (damageTaken < 0) {
+				damageTaken = 0; // no damage taken if defense is higher than damage
+			}
 			hitPoints -= damageTaken;
-			System.out.println(damage + " DMG - " + defense + " DEF = " + damageTaken + " DMG TAKEN");
-			System.out.printf("Opponent takes %d damage. Remaining HP: %d%n", damageTaken, hitPoints);
 			if (hitPoints < 0) {
 				hitPoints = 0; // prevent negative hit points
 			}
+			System.out.println("----------------------------------------------------------");
+			System.out.println(damage + " DMG - " + defense + " DEF = " + damageTaken + " DMG TAKEN");
+			System.out.printf("Opponent takes %d damage. Remaining HP: %d%n", damageTaken, hitPoints);
+			System.out.println("----------------------------------------------------------");
 		}
 
 		/**
@@ -202,6 +207,8 @@ public class Opponent {
 		public void defend(int attack) {
 			int halvedAttack = attack / 2;
 			takeDamage(halvedAttack);
+
+			System.out.println("DEFEND --- " +attack + " DMG => " + halvedAttack + " DMG (HALVED)");
 		}
 		
 		/**
@@ -212,5 +219,7 @@ public class Opponent {
 		public void charge(Warrior warrior) {
 			int damage = this.attack * 3; // triple the attack
 			warrior.takeDamage(damage);
+
+			System.out.println("CHARGE --- " + this.attack + " DMG => " + damage + " DMG (TRIPLED)");
 		}
 }

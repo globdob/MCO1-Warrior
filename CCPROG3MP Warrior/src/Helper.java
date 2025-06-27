@@ -341,7 +341,7 @@ public class Helper {
             if (opponent.isDefending()) { // check if opponent is defending
                 System.out.println("Opponent is defending. Attack will be halved.");
                 opponent.setDefending(false); // reset opponent defending state
-                opponent.defend(warrior.getAttack());
+                opponent.defend(warrior.getAttack() + (warrior.getEquippedWeapon() != null ? warrior.getEquippedWeapon().getAttack() : 0)); // attack with halved damage
             } else if (warrior.isCharged()) { // check if warrior is charged
                 System.out.println("You are charged. Your attack is tripled!");
                 warrior.setChargeCounter(3);

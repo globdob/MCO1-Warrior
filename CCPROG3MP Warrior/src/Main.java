@@ -86,18 +86,18 @@ public class Main {
                 System.out.println("=========================================================\n");
                 // start the game loop
                 do {    
+                    environment.applyPenalties(warrior, opponent); // add environment penalties to warrior and opponent
                     System.out.println("=========================================================\n");
                     // basic player / opp data (name, hp) / environment effects
                     Display.displayAllStats(warrior, opponent);
                     environment.displayEnvironment(false); 
                     System.out.println("=========================================================\n");
-                    environment.applyPenalties(warrior, opponent); // add environment penalties to warrior and opponent
                     
                     if (warrior.getHitPoints() <= 0 || opponent.getHitPoints() <= 0) { // check hp
                         turn = 0; // end the game loop
                     
                     } else{
-                        // check charge counter
+                        // check charge counter for warrior and opponent
                         if (warrior.getChargeCounter() > 0) {
                             System.out.println(warrior.getChargeCounter() + " turns left for charge.");
                             warrior.setChargeCounter(warrior.getChargeCounter() - 1); // decrement charge counter
@@ -107,6 +107,7 @@ public class Main {
                             opponent.setChargeCounter(opponent.getChargeCounter() - 1); // decrement opponent charge counter
                         }
 
+                        // check if warrior is charged and if they did not attack last turn
                         if (warrior.isCharged() && !playerAction.equals("attack") && !warrior.isChargedLastTurn()) {
                             System.out.println("You lost your charged status because you did not attack!");
                             warrior.setCharged(false);
@@ -115,6 +116,7 @@ public class Main {
                             warrior.setChargedLastTurn(false); // reset charged last turn status
                         }
 
+                        // check if opponent is charged and if they did not attack last turn
                         if (opponent.isCharged() && !opponentAction.equals("attack") && !opponent.isChargedLastTurn()) {
                             System.out.println("Opponent lost their charged status because they did not attack!");
                             opponent.setCharged(false);
@@ -122,39 +124,46 @@ public class Main {
                             System.out.println("Opponent is charged. Next attack will be tripled.");
                             opponent.setChargedLastTurn(false); // reset opponent charged last turn status
                         }
-                        
-                        // text art??
 
                         // save actions for player and opponent
                         playerAction = Helper.getPlayerAction(sc); // prompt player for action
                         opponentAction = Helper.getOpponentAction(); // determine opponent action
 
-                        // check defend
-                        if (playerAction.equals("defend")) {
-                            warrior.setDefending(true); // set warrior to defending
-                            System.out.println("You are defending this turn.");
-                        }
-                        if (opponentAction.equals("defend")) {
-                            opponent.setDefending(true); // set opponent to defending
-                            System.out.println("Opponent is defending this turn.");
+                        // player action : check defend and charge
+                        switch (playerAction) {
+                            case "defend":
+                                warrior.setDefending(true); // set warrior to defending
+                                System.out.println("You are defending this turn.");
+                                break;
+                            case "charge":
+                                warrior.setCharged(true);
+                                warrior.setChargedLastTurn(true); // set charged last turn status
+                                System.out.println("You are charging this turn. Next attack will be tripled.");
+                                break;
+                            default:
+                                System.out.println("Invalid action. Please choose again.");
+                                break;
                         }
 
-                        // check charge
-                        if (playerAction.equals("charge")) {
-                            warrior.setCharged(true);
-                            warrior.setChargedLastTurn(true); // set charged last turn status
-                            System.out.println("You are charging this turn. Next attack will be tripled.");
-                        }
-                        if (opponentAction.equals("charge")) {
-                            opponent.setCharged(true);
-                            opponent.setChargedLastTurn(true); // set opponent charged last turn status
-                            System.out.println("Opponent is charging this turn. Next attack will be tripled.");
+                        // opponent action : check defend and charge
+                        switch (opponentAction) {
+                            case "defend":
+                                opponent.setDefending(true); // set opponent to defending
+                                System.out.println("Opponent is defending this turn.");
+                                break;
+                            case "charge":
+                                opponent.setCharged(true);
+                                opponent.setChargedLastTurn(true); // set opponent charged last turn status
+                                System.out.println("Opponent is charging this turn. Next attack will be tripled.");
+                                break;
+                            default:
+                                System.out.println("Invalid action. Please choose again.");
+                                break;
                         }
 
                         turn = Helper.compareSpeed(warrior, opponent); // turn = 1 if player goes first, 2 if opponent goes first
                         //// check speed to determine whose action will initiate first (turn 1 or 2)
                         
-                        /// HAVE DISPLAY TEXT HERE!!! 
                         // attack actions
                         if (turn == 1) {
                             // player's turn

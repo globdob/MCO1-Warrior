@@ -85,6 +85,14 @@ public class Warrior {
 			return speed;
 		}
 
+		public Weapon getEquippedWeapon() {
+			return equippedWeapon;
+		}
+
+		public Armor getEquippedArmor() {
+			return equippedArmor;
+		}
+
 		public String getWeaponName() {
 			return equippedWeapon != null ? equippedWeapon.getWeapon() : "N/A";
 		}
@@ -161,13 +169,18 @@ public class Warrior {
 		 * @param int damage - the amount of damage taken
 		 */
 		public void takeDamage(int damage) {
-			int damageTaken = damage - (equippedArmor != null ? equippedArmor.getDefense() : 0);
+			int damageTaken = damage - (defense + (equippedArmor != null ? equippedArmor.getDefense() : 0));
+			if (damageTaken < 0) {
+				damageTaken = 0; // no damage taken if defense is higher than damage
+			}
 			hitPoints -= damageTaken;
-			System.out.println(damage + " DMG - " + (equippedArmor != null ? equippedArmor.getDefense() : 0) + " DEF = " + damageTaken + " DMG TAKEN");
-			System.out.printf("Warrior takes %d damage. Remaining HP: %d%n", damageTaken, hitPoints);
 			if (hitPoints < 0) {
 				hitPoints = 0; // prevent negative hit points
 			}
+			System.out.println("----------------------------------------------------------");
+			System.out.println(damage + " DMG - " + (defense + (equippedArmor != null ? equippedArmor.getDefense() : 0)) + " DEF = " + damageTaken + " DMG TAKEN");
+			System.out.printf("Warrior takes %d damage. Remaining HP: %d%n", damageTaken, hitPoints);
+		System.out.println("----------------------------------------------------------");
 		}
 		
 		/**
@@ -178,6 +191,8 @@ public class Warrior {
 		public void defend(int attack) {
 			int halvedAttack = attack / 2;
 			takeDamage(halvedAttack);
+
+			System.out.println("DEFEND --- " + attack + " DMG => " + halvedAttack + " DMG (HALVED)");
 		}
 
 		/**
@@ -188,6 +203,8 @@ public class Warrior {
 		public void charge(Opponent opponent) {
 			int damage = (this.attack + (equippedWeapon != null ? equippedWeapon.getAttack() : 0)) * 3;
 			opponent.takeDamage(damage);
+
+			System.out.println("CHARGE --- " + (this.attack + (equippedWeapon != null ? equippedWeapon.getAttack() : 0)) + " DMG => " + damage + " DMG (TRIPLED)");
 		}
 	
 }
