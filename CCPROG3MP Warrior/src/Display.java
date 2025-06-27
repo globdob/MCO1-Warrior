@@ -18,7 +18,17 @@ public class Display {
         System.out.println("[0] Exit Game");
         System.out.println("\n=========================================================\n");
     }
-    
+
+    /**
+     * Displays message asking the player if they want to play again.
+     */
+    public static void displayGameOverMessage() {
+        System.out.println("\nWould you like to play again?");
+        System.out.println("[1] Yes, back to main menu");
+        System.out.println("[0] No, exit game");
+        System.out.println("=========================================================\n");
+    }
+
     /**
      * Displays the instructions for how to play the game.
      * This method provides a brief overview of the game mechanics and objectives.

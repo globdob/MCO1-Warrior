@@ -206,9 +206,8 @@ public class Opponent {
 		 */
 		public void defend(int attack) {
 			int halvedAttack = attack / 2;
-			takeDamage(halvedAttack);
-
 			System.out.println("DEFEND --- " +attack + " DMG => " + halvedAttack + " DMG (HALVED)");
+			takeDamage(halvedAttack);
 		}
 		
 		/**
@@ -218,8 +217,7 @@ public class Opponent {
 		 */
 		public void charge(Warrior warrior) {
 			int damage = this.attack * 3; // triple the attack
-			warrior.takeDamage(damage);
-
 			System.out.println("CHARGE --- " + this.attack + " DMG => " + damage + " DMG (TRIPLED)");
+			warrior.takeDamage(damage);
 		}
 }

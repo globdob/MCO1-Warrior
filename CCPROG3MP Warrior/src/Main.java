@@ -140,9 +140,6 @@ public class Main {
                                 warrior.setChargedLastTurn(true); // set charged last turn status
                                 System.out.println("You are charging this turn. Next attack will be tripled.");
                                 break;
-                            default:
-                                System.out.println("Invalid action. Please choose again.");
-                                break;
                         }
 
                         // opponent action : check defend and charge
@@ -155,9 +152,6 @@ public class Main {
                                 opponent.setCharged(true);
                                 opponent.setChargedLastTurn(true); // set opponent charged last turn status
                                 System.out.println("Opponent is charging this turn. Next attack will be tripled.");
-                                break;
-                            default:
-                                System.out.println("Invalid action. Please choose again.");
                                 break;
                         }
 
@@ -202,7 +196,14 @@ public class Main {
                 System.out.println(warrior.getHitPoints() <= 0 ? "GAME OVER: You have been defeated!" :
                              "CONGRATULATIONS: You have defeated your opponent!");
                 // ask if player wants to continue playing or exit
-            } 
+                do 
+                {
+                    Display.displayGameOverMessage();
+                    System.out.println("Enter your choice: ");
+                    menuchoice = sc.nextInt();
+                } while (menuchoice != 0 && menuchoice != 1); // loop until player chooses to exit or continue
+                
+            } // end of game start (creationstat == 5)
 
         } // end of game start (menuchoice == 1)
 

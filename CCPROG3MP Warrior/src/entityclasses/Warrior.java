@@ -190,9 +190,8 @@ public class Warrior {
 		 */
 		public void defend(int attack) {
 			int halvedAttack = attack / 2;
-			takeDamage(halvedAttack);
-
 			System.out.println("DEFEND --- " + attack + " DMG => " + halvedAttack + " DMG (HALVED)");
+			takeDamage(halvedAttack);
 		}
 
 		/**
@@ -202,9 +201,8 @@ public class Warrior {
 		 */
 		public void charge(Opponent opponent) {
 			int damage = (this.attack + (equippedWeapon != null ? equippedWeapon.getAttack() : 0)) * 3;
-			opponent.takeDamage(damage);
-
 			System.out.println("CHARGE --- " + (this.attack + (equippedWeapon != null ? equippedWeapon.getAttack() : 0)) + " DMG => " + damage + " DMG (TRIPLED)");
+			opponent.takeDamage(damage);
 		}
 	
 }
