@@ -286,37 +286,15 @@ public class Helper {
      * Asks the user to choose an action for their warrior.
      * The user can choose to attack, defend, or charge.
      * * @param Scanner scanner - the Scanner object used to read user input
-     * * @param boolean chargeStatus - checks if user has charged already
-     * * @param int chargeCounter - charge cooldown
      * @return String - the action chosen by the user
      */
-    public static String getPlayerAction(Scanner sc, boolean chargeStatus) {
+    public static String getPlayerAction(Scanner sc, boolean chargeStatus, Warrior warrior) {
         int input;
         String playerAction = "";
-        do {
-        	if(chargeStatus != true) {
-        		System.out.println("Choose your action:");
-                System.out.println("[1] Attack");
-                System.out.println("[2] Defend");
-                System.out.print("Enter your action: ");
-                
-                input = sc.nextInt(); 
-                switch (input) {
-                    case 1:
-                        playerAction = "attack";
-                        System.out.println("You chose to attack!");
-                        break;
-                    case 2:
-                        playerAction = "defend";
-                        System.out.println("You chose to defend!");
-                        break;
-                    default:
-                        System.out.println("Invalid choice. Please try again.");
-                }
-                } while (input != 1 && input != 2 && input != 3); // loop until a valid action is chosen
-            } else {
+        
+        	if(chargeStatus != true && warrior.getChargeCounter() == 0) { // if charge is not available and warrior has a charge counter
                 do {
-            	System.out.println("Choose your action:");
+        		System.out.println("Choose your action:");
                 System.out.println("[1] Attack");
                 System.out.println("[2] Defend");
                 System.out.println("[3] Charge");
@@ -339,9 +317,31 @@ public class Helper {
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
+                } while (input != 1 && input != 2 && input != 3); // loop until a valid action is chosen
+            } else {
+                do {
+            	System.out.println("Choose your action:");
+                System.out.println("[1] Attack");
+                System.out.println("[2] Defend");
+                System.out.print("Enter your action: ");
+                
+                input = sc.nextInt(); 
+                switch (input) {
+                    case 1:
+                        playerAction = "attack";
+                        System.out.println("You chose to attack!");
+                        break;
+                    case 2:
+                        playerAction = "defend";
+                        System.out.println("You chose to defend!");
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+                } while (input != 1 && input != 2); // loop until a valid action is chosen
         	
             }
-        } while (input != 1 && input != 2 && input != 3); // loop until a valid action is chosen
+        
         return playerAction; // return the chosen action
     }
 
