@@ -10,7 +10,7 @@ public class Opponent {
 
 	private int chargeCounter; // counter for charge action
 	private boolean isCharged; // flag to check if warrior is charged
-	private boolean ChargedLastTurn; // flag to check if warrior was charged last turn
+	private boolean chargedLastTurn; // flag to check if warrior was charged last turn
 	private boolean isDefending; // flag to check if warrior is defending
 	
 	// constructor
@@ -48,7 +48,7 @@ public class Opponent {
 			this.chargeCounter = 0;
 			this.isCharged = false;
 			this.isDefending = false;
-			this.ChargedLastTurn = false;
+			this.chargedLastTurn = false;
 		}
 
 	// setter
@@ -108,8 +108,8 @@ public class Opponent {
 			this.isCharged = isCharged;
 		}
 
-		public void setChargedLastTurn(boolean ChargedLastTurn) {
-			this.ChargedLastTurn = ChargedLastTurn;
+		public void setChargedLastTurn(boolean chargedLastTurn) {
+			this.chargedLastTurn = chargedLastTurn;
 		}
 
 		public void setDefending(boolean isDefending) {
@@ -154,7 +154,7 @@ public class Opponent {
 			return isCharged;
 		}
 		public boolean isChargedLastTurn() {
-			return ChargedLastTurn;
+			return chargedLastTurn;
 		}
 		public boolean isDefending() {
 			return isDefending;

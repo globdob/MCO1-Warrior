@@ -288,32 +288,54 @@ public class Helper {
      * * @param Scanner scanner - the Scanner object used to read user input
      * @return String - the action chosen by the user
      */
-    public static String getPlayerAction(Scanner sc) {
+    public static String getPlayerAction(Scanner sc, boolean chargeStatus) {
         int input;
         String playerAction = "";
         do {
-            System.out.println("Choose your action:");
-            System.out.println("[1] Attack");
-            System.out.println("[2] Defend");
-            System.out.println("[3] Charge");
-            System.out.print("Enter your action: ");
-            
-            input = sc.nextInt(); 
-            switch (input) {
-                case 1:
-                    playerAction = "attack";
-                    System.out.println("You chose to attack!");
-                    break;
-                case 2:
-                    playerAction = "defend";
-                    System.out.println("You chose to defend!");
-                    break;
-                case 3:
-                    playerAction = "charge";
-                    System.out.println("You chose to charge!");
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+        	if(chargeStatus != true) {
+        		System.out.println("Choose your action:");
+                System.out.println("[1] Attack");
+                System.out.println("[2] Defend");
+                System.out.println("[3] Charge");
+                System.out.print("Enter your action: ");
+                
+                input = sc.nextInt(); 
+                switch (input) {
+                    case 1:
+                        playerAction = "attack";
+                        System.out.println("You chose to attack!");
+                        break;
+                    case 2:
+                        playerAction = "defend";
+                        System.out.println("You chose to defend!");
+                        break;
+                    case 3:
+                        playerAction = "charge";
+                        System.out.println("You chose to charge!");
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+            } else {
+            	System.out.println("Choose your action:");
+                System.out.println("[1] Attack");
+                System.out.println("[2] Defend");
+                System.out.print("Enter your action: ");
+                
+                input = sc.nextInt(); 
+                switch (input) {
+                    case 1:
+                        playerAction = "attack";
+                        System.out.println("You chose to attack!");
+                        break;
+                    case 2:
+                        playerAction = "defend";
+                        System.out.println("You chose to defend!");
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+        	
             }
         } while (input != 1 && input != 2 && input != 3); // loop until a valid action is chosen
         return playerAction; // return the chosen action
