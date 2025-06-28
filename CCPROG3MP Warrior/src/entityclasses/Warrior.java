@@ -150,6 +150,23 @@ public class Warrior {
 		public void resetArmor() {
 			this.equippedArmor = null;
 		}
+
+		/**
+		 * Resets the warrior's stats to default values.
+		 * This is useful for starting a new game or resetting the warrior.
+		 */
+		public void resetStats() {
+			this.hitPoints = 100; // default hit points
+			this.attack = 1; // default attack
+			this.defense = 1; // default defense
+			this.speed = 50; // default speed
+			this.equippedWeapon = null; // no weapon equipped by default
+			this.equippedArmor = null; // no armor equipped by default
+			this.chargeCounter = 0;
+			this.isCharged = false;
+			this.isDefending = false;
+			this.chargedLastTurn = false;
+		}
 		///////////////
 
 		/**

@@ -47,6 +47,11 @@ public class Main {
         }
         
        if (menuchoice == 1) { /////////////////////// game start
+            // reset warrior, opponent, and environment
+            warrior.resetStats(); // reset warrior stats
+            opponent.resetStats(); // reset opponent stats
+            environment.setEnvironment("N/A"); // reset environment stats
+
             // pregame character creation / selection
             creationstat = 0; // reset creation status
             do {
@@ -99,12 +104,20 @@ public class Main {
                     } else{
                         // check charge counter for warrior and opponent
                         if (warrior.getChargeCounter() > 0) {
-                            System.out.println(warrior.getChargeCounter() + " turns left for charge.");
                             warrior.setChargeCounter(warrior.getChargeCounter() - 1); // decrement charge counter
+                            if (warrior.getChargeCounter() == 0) {
+                                System.out.println("Warrior is ready to charge!");
+                            } else{
+                                System.out.println(warrior.getChargeCounter() + " turns left for charge.");
+                            }
                         }
                         if (opponent.getChargeCounter() > 0) {
-                            System.out.println(opponent.getChargeCounter() + " turns left for opponent charge.");
                             opponent.setChargeCounter(opponent.getChargeCounter() - 1); // decrement opponent charge counter
+                            if (opponent.getChargeCounter() == 0) {
+                                System.out.println("Opponent is ready to charge!");
+                            } else{
+                                System.out.println(opponent.getChargeCounter() + " turns left for opponent charge.");
+                            }
                         }
 
                         // check if warrior is charged and if they did not attack last turn
@@ -126,7 +139,7 @@ public class Main {
                         }
 
                         // save actions for player and opponent
-                        playerAction = Helper.getPlayerAction(sc, warrior.isCharged()); // prompt player for action
+                        playerAction = Helper.getPlayerAction(sc, warrior.isCharged(), warrior); // prompt player for action
                         opponentAction = Helper.getOpponentAction(); // determine opponent action
 
                         // player action : check defend and charge

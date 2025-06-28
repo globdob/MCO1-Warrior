@@ -165,12 +165,16 @@ public class Opponent {
 		 * Reverts opponent's stats to 0 and clears out its type to "N/A"
 		 * @param void
 		 */
-		public void revertOpponent() {
+		public void resetStats() {
 			this.type = "N/A";
 			this.hitPoints = 0;
 			this.attack = 0;
 			this.defense = 0;
 			this.speed = 0;
+			this.chargeCounter = 0;
+			this.isCharged = false;
+			this.isDefending = false;
+			this.chargedLastTurn = false;
 		}
 
 		/**

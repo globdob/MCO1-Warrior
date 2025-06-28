@@ -212,7 +212,7 @@ public class Helper {
                     break;
                 case 0:
                     System.out.println("Going back to opponent selection...");
-                    opponent.revertOpponent(); // revert opponent selection
+                    opponent.resetStats(); // revert opponent selection
                     creationstat = -1; // reset creation status to go back to opponent selection
                     break;
                 default:
@@ -288,11 +288,12 @@ public class Helper {
      * * @param Scanner scanner - the Scanner object used to read user input
      * @return String - the action chosen by the user
      */
-    public static String getPlayerAction(Scanner sc, boolean chargeStatus) {
+    public static String getPlayerAction(Scanner sc, boolean chargeStatus, Warrior warrior) {
         int input;
         String playerAction = "";
-        do {
-        	if(chargeStatus != true) {
+        
+        	if(chargeStatus != true && warrior.getChargeCounter() == 0) { // if charge is not available and warrior has a charge counter
+                do {
         		System.out.println("Choose your action:");
                 System.out.println("[1] Attack");
                 System.out.println("[2] Defend");
@@ -316,7 +317,9 @@ public class Helper {
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
+                } while (input != 1 && input != 2 && input != 3); // loop until a valid action is chosen
             } else {
+                do {
             	System.out.println("Choose your action:");
                 System.out.println("[1] Attack");
                 System.out.println("[2] Defend");
@@ -335,9 +338,10 @@ public class Helper {
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
+                } while (input != 1 && input != 2); // loop until a valid action is chosen
         	
             }
-        } while (input != 1 && input != 2 && input != 3); // loop until a valid action is chosen
+        
         return playerAction; // return the chosen action
     }
 
