@@ -126,7 +126,7 @@ public class Main {
                         }
 
                         // save actions for player and opponent
-                        playerAction = Helper.getPlayerAction(sc, warrior.isCharged()); // prompt player for action
+                        playerAction = Helper.getPlayerAction(sc, warrior.isCharged(), warrior.getChargeCounter()); // prompt player for action
                         opponentAction = Helper.getOpponentAction(); // determine opponent action
 
                         // player action : check defend and charge
